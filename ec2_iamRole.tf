@@ -11,6 +11,10 @@ provider "aws" {
   region = "eu-west-1"
 }
 
+#-----------------------#
+#Instance resource#
+#-----------------------#
+
 resource "aws_instance" "ec2_iam_role" {
   ami           = "ami-080af029940804103"
   instance_type = "t2.micro"
@@ -20,10 +24,18 @@ resource "aws_instance" "ec2_iam_role" {
   }
 }
 
+#-------------------------------#
+#Creation of instance profile#
+#-------------------------------#
+
 resource "aws_iam_instance_profile" "ec2_profile" {
   name = "ec2_profile"
   role = aws_iam_role.ec2_role.name
 }
+
+#-------------------------------#
+#Creation of role & policy#
+#-------------------------------#
 
 resource "aws_iam_role" "ec2_role" {
   name = "ec2_role"
